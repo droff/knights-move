@@ -1,0 +1,12 @@
+.logger {
+  font-size: 14px;
+}
+
+.logger > ol {
+  column-count: 3;
+  column-gap: 50px;
+}
+
+.logger > ol > li {
+  color: #8d99ae;
+}

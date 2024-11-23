@@ -1,0 +1,20 @@
+.square {
+  display: table;
+  width: 35px;
+  height: 35px;
+  background-color: #30353f;
+  color: #8d99ae;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.square_enabled {
+  background-color: #363e50;
+}
+
+.square > span {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 15px;
+  font-weight: 700;
+}

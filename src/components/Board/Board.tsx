@@ -1,4 +1,5 @@
 import React from "react";
+import "./Board.css";
 import { MoveType, MovesType } from "../../types";
 import Square from "../Square/Square";
 
