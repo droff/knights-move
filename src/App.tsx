@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { MovesType } from "./types";
 import Board from "./components/Board/Board";
-import Logger from "./components/Logger/Logger";
+// import Logger from "./components/Logger/Logger";
 
 interface Props {}
 
@@ -31,7 +31,7 @@ export class App extends React.Component<Props, State> {
       <div className="App">
         <header className="App-header">
           <Board width={8} height={8} movesHandler={this.movesHandler} />
-          <Logger userMoves={this.state.userMoves} />
+          {/* <Logger userMoves={this.state.userMoves} /> */}
         </header>
       </div>
     );
