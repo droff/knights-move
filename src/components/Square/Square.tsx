@@ -1,59 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Square.css";
+import { useGameContext } from "../Game/Game";
 
-interface Props {
-  w: number;
-  h: number;
-  handler: Function;
-  enabled: Function;
+interface SquareProps {
+  rowId: number;
+  colId: number;
 }
 
-interface State {
-  className: string;
-  value: number;
-}
+const Square: React.FC<SquareProps> = (props: SquareProps) => {
+  const { makeMove } = useGameContext();
 
-class Square extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  const { rowId, colId } = props;
+  const [enabled, setEnabled] = useState<boolean>(false);
+  const [step, setStep] = useState<number>(0);
+  const [className, setClassName] = useState<string>("square");
 
-    this.state = {
-      className: "square",
-      value: 0,
-    };
+  const handleMove = () => {
+    if (enabled) return;
 
-    this.handleMove = this.handleMove.bind(this);
-  }
+    const currentStep = makeMove(rowId, colId);
+    setStep(currentStep);
+    setEnabled(true);
+    setClassName("square square_enabled");
+  };
 
-  value() {
-    return this.state.value === 0 ? "" : this.state.value;
-  }
-
-  className() {
-    const nonvalued = this.state.value === 0;
-    const enabled = this.props.enabled(this.props.w, this.props.h);
-    return enabled && nonvalued ? "square square_enabled" : "square";
-  }
-
-  handleMove() {
-    const initialState = this.state.value !== 0;
-    const disabled = !this.props.enabled(this.props.w, this.props.h);
-    if (initialState || disabled) return;
-
-    const val = this.props.handler(this.props.w, this.props.h);
-    this.setState({
-      value: val,
-      className: this.className(),
-    });
-  }
-
-  render() {
-    return (
-      <div className={this.className()} onClick={this.handleMove}>
-        <span>{this.value()}</span>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={className} onClick={handleMove}>
+      <span>{step === 0 ? "" : step}</span>
+    </div>
+  );
+};
 
 export default Square;
