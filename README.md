@@ -1,1 +1,1 @@
-# Knights move
+# Knight's move
