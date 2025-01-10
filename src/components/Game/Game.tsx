@@ -16,9 +16,16 @@ export const useGameContext = (): GameInterface => {
   return context;
 };
 
-export const Game: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+type GameProps = {
+  rows: number;
+  cols: number;
+  children: React.ReactNode;
+};
+
+export const Game: React.FC<GameProps> = (props: GameProps) => {
+  const { rows, cols, children } = props;
   const [board, setBoard] = useState<BoardType>(
-    Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => 0))
+    Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0))
   );
   const [currentMove, setCurrentMove] = useState<number>(0);
   const [prevCalculatedMoves, setPrevCalculatedMoves] = useState<number[][]>(
@@ -49,13 +56,13 @@ export const Game: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       })
       .filter((move: MoveType) => {
         const [row, col] = move;
-        return row >= 0 && row < 8 && col >= 0 && col < 8;
+        return row >= 0 && row < rows && col >= 0 && col < cols;
       });
   };
 
   const fillBoardWithValues = (value: number): BoardType => {
-    return Array.from({ length: 8 }, () =>
-      Array.from({ length: 8 }, () => value)
+    return Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => value)
     );
   };
 

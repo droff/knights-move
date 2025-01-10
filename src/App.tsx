@@ -9,8 +9,8 @@ const App: React.FC<Props> = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Game>
-          <Board rows={8} cols={8} />
+        <Game rows={8} cols={8}>
+          <Board />
         </Game>
       </header>
     </div>

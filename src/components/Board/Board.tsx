@@ -17,31 +17,20 @@ export const useBoardContext = (): BoardInterface => {
   return context;
 };
 
-type BoardProps = {
-  rows: number;
-  cols: number;
-};
-
-const Board: React.FC<BoardProps> = (props: BoardProps) => {
-  const { rows, cols } = props;
+const Board: React.FC<{}> = () => {
   const { board } = useGameContext();
 
   const renderBoard = (): React.ReactNode[] => {
-    const squares: React.ReactNode[] = [];
-
-    for (let row = 0; row < rows; row++)
-      for (let col = 0; col < cols; col++) {
-        squares.push(
-          <Square
-            key={`[${row};${col}]`}
-            row={row}
-            col={col}
-            move={board[row][col]}
-          />
-        );
-      }
-
-    return squares;
+    return board.map((row, rowIndex) =>
+      row.map((move, colIndex) => (
+        <Square
+          key={`[${rowIndex};${colIndex}]`}
+          row={rowIndex}
+          col={colIndex}
+          move={move}
+        />
+      ))
+    );
   };
 
   return (
