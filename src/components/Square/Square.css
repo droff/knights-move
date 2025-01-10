@@ -1,7 +1,7 @@
 .square {
   display: table;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   background-color: #30353f;
   color: #8d99ae;
   border-radius: 5px;
@@ -11,7 +11,7 @@
 .square > span {
   display: table-cell;
   vertical-align: middle;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
 }
 
