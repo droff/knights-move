@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
-import { MoveType, MovesType } from "../../types";
+import { BoardType, MoveType, MovesType } from "../../types";
 
 interface GameInterface {
-  userMoves: MovesType;
+  board: BoardType;
   makeMove: Function;
 }
 
@@ -17,8 +17,14 @@ export const useGameContext = (): GameInterface => {
 };
 
 export const Game: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [moves, setMoves] = useState<string[]>();
-  const [userMoves, setUserMoves] = useState<MovesType>([]);
+  const [board, setBoard] = useState<BoardType>(
+    Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => 0))
+  );
+  const [currentMove, setCurrentMove] = useState<number>(0);
+  const [prevCalculatedMoves, setPrevCalculatedMoves] = useState<number[][]>(
+    []
+  );
+  const isFirstMove = currentMove === 0;
 
   const movesPatterns: MovesType = [
     [0, 1],
@@ -31,26 +37,68 @@ export const Game: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     [-1, 1],
   ];
 
-  const calculateMoves = (w: number, h: number): string[] => {
-    let wi = w - 2,
-      hi = h;
+  const calculateMoves = (row: number, col: number): number[][] => {
+    let rowId = row - 2;
+    let colId = col;
 
-    return movesPatterns.map((pattern: MoveType) => {
-      wi += pattern[0];
-      hi += pattern[1];
-      return JSON.stringify([wi, hi]);
+    return movesPatterns
+      .map((pattern: MoveType) => {
+        rowId += pattern[0];
+        colId += pattern[1];
+        return [rowId, colId];
+      })
+      .filter((move: MoveType) => {
+        const [row, col] = move;
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+      });
+  };
+
+  const fillBoardWithValues = (value: number): BoardType => {
+    return Array.from({ length: 8 }, () =>
+      Array.from({ length: 8 }, () => value)
+    );
+  };
+
+  const resetPreviousMoves = (board: BoardType): void => {
+    prevCalculatedMoves.forEach((move: MoveType) => {
+      const [row, col] = move;
+      if (board[row][col] === 0) {
+        board[row][col] = -1;
+      }
     });
   };
 
-  const makeMove = (colId: number, rowId: number): number => {
-    setMoves([...(moves || []), ...calculateMoves(colId, rowId)]);
-    setUserMoves([...userMoves, [colId, rowId]]);
+  const activateCalculatedMoves = (
+    board: BoardType,
+    row: number,
+    col: number
+  ): void => {
+    const calculatedMoves = calculateMoves(row, col);
 
-    return userMoves.length + 1;
+    calculatedMoves.forEach((move: MoveType) => {
+      const [row, col] = move;
+      if (board[row][col] === -1) {
+        board[row][col] = 0;
+      }
+    });
+
+    setPrevCalculatedMoves(calculatedMoves);
+  };
+
+  const makeMove = (row: number, col: number): void => {
+    const move = currentMove + 1;
+    const updatedBoard = isFirstMove ? fillBoardWithValues(-1) : board;
+
+    resetPreviousMoves(updatedBoard);
+    activateCalculatedMoves(updatedBoard, row, col);
+    updatedBoard[row][col] = move;
+
+    setCurrentMove(move);
+    setBoard(updatedBoard);
   };
 
   return (
-    <GameContext.Provider value={{ userMoves, makeMove }}>
+    <GameContext.Provider value={{ board, makeMove }}>
       {children}
     </GameContext.Provider>
   );

@@ -1,32 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Square.css";
 import { useGameContext } from "../Game/Game";
 
-interface SquareProps {
-  rowId: number;
-  colId: number;
-}
+type SquareProps = {
+  row: number;
+  col: number;
+  move: number;
+};
 
 const Square: React.FC<SquareProps> = (props: SquareProps) => {
+  const { row, col, move } = props;
   const { makeMove } = useGameContext();
 
-  const { rowId, colId } = props;
-  const [enabled, setEnabled] = useState<boolean>(false);
-  const [step, setStep] = useState<number>(0);
-  const [className, setClassName] = useState<string>("square");
+  const isInactive = move === -1;
+  const isActive = move === 0;
+  const isActivated = move > 0;
+
+  const className =
+    isActivated || isInactive ? "square" : "square square-active";
+
+  const moveValue = isInactive || isActive ? "" : move;
 
   const handleMove = () => {
-    if (enabled) return;
-
-    const currentStep = makeMove(rowId, colId);
-    setStep(currentStep);
-    setEnabled(true);
-    setClassName("square square_enabled");
+    if (isInactive || isActivated) return;
+    makeMove(row, col);
   };
 
   return (
     <div className={className} onClick={handleMove}>
-      <span>{step === 0 ? "" : step}</span>
+      <span>{moveValue}</span>
     </div>
   );
 };
