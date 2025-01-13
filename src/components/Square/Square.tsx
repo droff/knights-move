@@ -1,4 +1,5 @@
 import React from "react";
+import Figure from "./Figure";
 import { useGameContext } from "../Game/Game";
 import "./Square.css";
 
@@ -29,6 +30,7 @@ const Square: React.FC<SquareProps> = (props: SquareProps) => {
   return (
     <div className={className} onClick={handleMove}>
       <span>{moveValue}</span>
+      {/* {isActivated && <Figure />} */}
     </div>
   );
 };
