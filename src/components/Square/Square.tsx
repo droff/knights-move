@@ -1,6 +1,6 @@
 import React from "react";
-import "./Square.css";
 import { useGameContext } from "../Game/Game";
+import "./Square.css";
 
 type SquareProps = {
   row: number;

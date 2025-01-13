@@ -1,18 +1,20 @@
 import React from "react";
-import "./App.css";
-import { Game } from "./components/Game/Game";
 import Board from "./components/Board/Board";
+import Control from "./components/Control/Control";
+import Game from "./components/Game/Game";
+import "./App.css";
 
 interface Props {}
 
 const App: React.FC<Props> = () => {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <section className="game">
         <Game rows={8} cols={8}>
           <Board />
+          <Control />
         </Game>
-      </header>
+      </section>
     </div>
   );
 };

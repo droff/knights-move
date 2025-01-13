@@ -4,6 +4,7 @@ import { BoardType, MoveType, MovesType } from "../../types";
 interface GameInterface {
   board: BoardType;
   makeMove: Function;
+  resetGame: Function;
 }
 
 const GameContext = createContext<GameInterface | undefined>(undefined);
@@ -104,9 +105,17 @@ export const Game: React.FC<GameProps> = (props: GameProps) => {
     setBoard(updatedBoard);
   };
 
+  const resetGame = (): void => {
+    setBoard(fillBoardWithValues(0));
+    setCurrentMove(0);
+    setPrevCalculatedMoves([]);
+  };
+
   return (
-    <GameContext.Provider value={{ board, makeMove }}>
+    <GameContext.Provider value={{ board, makeMove, resetGame }}>
       {children}
     </GameContext.Provider>
   );
 };
+
+export default Game;

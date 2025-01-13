@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
-import "./Board.css";
 import Square from "../Square/Square";
 import { useGameContext } from "../Game/Game";
+import "./Board.css";
 
 interface BoardInterface {
   renderBoard: Function;
@@ -35,7 +35,7 @@ const Board: React.FC<{}> = () => {
 
   return (
     <BoardContext.Provider value={{ renderBoard }}>
-      <div className="board">{renderBoard()}</div>
+      <section className="board">{renderBoard()}</section>
     </BoardContext.Provider>
   );
 };
