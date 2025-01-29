@@ -11,8 +11,9 @@ const App: React.FC<Props> = () => {
     <div className="app">
       <section className="game">
         <Game rows={8} cols={8}>
-          <Board />
-          <Control />
+          <Control>
+            <Board />
+          </Control>
         </Game>
       </section>
     </div>

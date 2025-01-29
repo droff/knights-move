@@ -1,48 +1,56 @@
-import React from "react";
+import React, { createContext, useContext, useState } from "react";
 import "./Control.css";
+import Reset from "./Reset";
 import { useGameContext } from "../Game/Game";
+import Switch from "./Switch";
 
-const Control: React.FC<{}> = (): React.ReactNode => {
+interface ControlInterface {
+  isFigure: boolean;
+}
+
+export const ControlContext = createContext<ControlInterface | undefined>(
+  undefined
+);
+
+export const useControlContext = (): ControlInterface => {
+  const context = useContext(ControlContext);
+  if (!context) {
+    throw new Error("ControlContext must be used within a ControlProvider");
+  }
+  return context;
+};
+
+type ControlProps = {
+  children: React.ReactNode;
+};
+
+const Control: React.FC<ControlProps> = (
+  props: ControlProps
+): React.ReactNode => {
+  const { children } = props;
+  const [isFigure, setIsFigure] = useState<boolean>(false);
   const { resetGame } = useGameContext();
 
   const handleReset = () => {
     resetGame();
   };
 
+  const handleSwitch = () => {
+    setIsFigure(!isFigure);
+  };
+
   return (
-    <section className="control">
-      <button onClick={handleReset}>
-        <svg
-          width="16px"
-          height="16px"
-          viewBox="0 0 21 21"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></g>
-          <g id="SVGRepo_iconCarrier">
-            {" "}
-            <g
-              fill="none"
-              fillRule="evenodd"
-              stroke="#8d99ae"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              transform="matrix(0 1 1 0 2.5 2.5)"
-            >
-              {" "}
-              <path d="m3.98652376 1.07807068c-2.38377179 1.38514556-3.98652376 3.96636605-3.98652376 6.92192932 0 4.418278 3.581722 8 8 8s8-3.581722 8-8-3.581722-8-8-8"></path>{" "}
-              <path d="m4 1v4h-4" transform="matrix(1 0 0 -1 0 6)"></path>{" "}
-            </g>{" "}
-          </g>
-        </svg>
-        Reset
-      </button>
-    </section>
+    <ControlContext.Provider value={{ isFigure }}>
+      {children}
+      <div className="control">
+        <div className="control-item">
+          <Switch handleSwitch={handleSwitch} />
+        </div>
+        <div className="control-item">
+          <Reset handleReset={handleReset} />
+        </div>
+      </div>
+    </ControlContext.Provider>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Figure from "./Figure";
 import { useGameContext } from "../Game/Game";
+import { useControlContext } from "../Control/Control";
 import "./Square.css";
 
 type SquareProps = {
@@ -11,6 +12,7 @@ type SquareProps = {
 
 const Square: React.FC<SquareProps> = (props: SquareProps) => {
   const { row, col, move } = props;
+  const { isFigure } = useControlContext();
   const { makeMove } = useGameContext();
 
   const isInactive = move === -1;
@@ -27,10 +29,17 @@ const Square: React.FC<SquareProps> = (props: SquareProps) => {
     makeMove(row, col);
   };
 
+  const renderValue = () => {
+    return <span>{moveValue}</span>;
+  };
+
+  const renderFigure = () => {
+    return isActivated && <Figure />;
+  };
+
   return (
     <div className={className} onClick={handleMove}>
-      <span>{moveValue}</span>
-      {/* {isActivated && <Figure />} */}
+      {isFigure ? renderFigure() : renderValue()}
     </div>
   );
 };

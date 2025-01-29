@@ -1,4 +1,12 @@
 .control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .control-item {
+    padding: 0 10px;
+  }
+
   button {
     align-items: center;
     background-color: #30353f;
