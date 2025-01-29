@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/knights-move/static/css/main.d7185d39.css",
+    "main.js": "/knights-move/static/js/main.5abf0356.js",
+    "static/js/453.2a076cf4.chunk.js": "/knights-move/static/js/453.2a076cf4.chunk.js",
+    "index.html": "/knights-move/index.html",
+    "main.d7185d39.css.map": "/knights-move/static/css/main.d7185d39.css.map",
+    "main.5abf0356.js.map": "/knights-move/static/js/main.5abf0356.js.map",
+    "453.2a076cf4.chunk.js.map": "/knights-move/static/js/453.2a076cf4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d7185d39.css",
+    "static/js/main.5abf0356.js"
+  ]
+}
