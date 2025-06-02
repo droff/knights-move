@@ -37,7 +37,7 @@ const Reset: React.FC<ResetProps> = (props: ResetProps) => {
           </g>{" "}
         </g>
       </svg>
-      Reset
+      Reset!
     </button>
   );
 };
