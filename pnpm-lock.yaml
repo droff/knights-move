@@ -49,8 +49,8 @@ importers:
         specifier: ^6.3.5
         version: 6.3.5(@types/node@16.18.126)
       web-vitals:
-        specifier: ^2.1.0
-        version: 2.1.4
+        specifier: ^5.0.3
+        version: 5.0.3
 
 packages:
 
@@ -1152,8 +1152,8 @@ packages:
       yaml:
         optional: true
 
-  web-vitals@2.1.4:
-    resolution: {integrity: sha512-sVWcwhU5mX6crfI5Vd2dC4qchyTqxV8URinzt25XqVh+bHEPGH4C3NPrNionCP7Obx59wrYEbNlw4Z8sjALzZg==}
+  web-vitals@5.0.3:
+    resolution: {integrity: sha512-4KmOFYxj7qT6RAdCH0SWwq8eKeXNhAFXR4PmgF6nrWFmrJ41n7lq3UCA6UK0GebQ4uu+XP8e8zGjaDO3wZlqTg==}
 
   which-boxed-primitive@1.1.1:
     resolution: {integrity: sha512-TbX3mj8n0odCBFVlY8AxkqcHASw3L60jIuF8jFP78az3C2YhmGvqbHBpAjTRH2/xqYunrJ9g1jSyjCjpoWzIAA==}
@@ -2234,7 +2234,7 @@ snapshots:
       '@types/node': 16.18.126
       fsevents: 2.3.3
 
-  web-vitals@2.1.4: {}
+  web-vitals@5.0.3: {}
 
   which-boxed-primitive@1.1.1:
     dependencies:
