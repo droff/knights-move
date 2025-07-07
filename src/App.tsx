@@ -8,7 +8,7 @@ interface Props {}
 
 const App: React.FC<Props> = () => {
   return (
-    <div className="app">
+    <div className="app" data-testid="app">
       <section className="game">
         <Game rows={8} cols={8}>
           <Control>
