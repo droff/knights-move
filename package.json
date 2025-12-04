@@ -6,7 +6,7 @@
   "homepage": "https://droff.github.io/knights-move",
   "dependencies": {
     "react": "^19.2.1",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.1"
   },
   "scripts": {
     "dev": "vite",
